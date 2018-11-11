@@ -42,6 +42,7 @@ let showStat = () => {
 
 showStat();
 
+
 // // 1. Создаём новый объект XMLHttpRequest
 // var xhr = new XMLHttpRequest();
 
