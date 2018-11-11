@@ -14,13 +14,29 @@ var HttpClient = function () {
 	}
 }
 
+
 let client = new HttpClient();
 
+let idChannel = 'UC_x5XG1OV2P6uZZ5FSM9Ttw';
+let part = 'statistics,brandingSettings';
+let nameChannel = document.querySelector('#name-channel');
+let descriptionChannel = document.querySelector('#description-channel');
+let imageChannel = document.querySelector('#image-channel');
+let countChannel = document.querySelector('#count');
+
+
 let showStat = () => {
-	client.get('https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&key=AIzaSyA1mDALQf2z4NA6-wkj513DJxG7FwozOvQ', 
+	client.get(`https://www.googleapis.com/youtube/v3/channels?part=${part}&id=&{idChannel}&key=UC_x5XG1OV2P6uZZ5FSM9Ttw&key=AIzaSyA1mDALQf2z4NA6-wkj513DJxG7FwozOvQ`,
+	// using `` here, not '' 
 	(response) => {
-		console.log(JSON.parse(response).items[0].statistics.subscriberCount);
-		console.log(JSON.parse(response).items[0].channelDescription); // see docs or console log the object
+
+		let info = JSONparse(response).items[0];
+		console.log(info);
+		//console.log(JSON.parse(response).items[0].statistics.subscriberCount);
+		nameChannel.innerText = info.brandingSettings.channel.title;
+		description.Channel.innerText = info.brandingSettings.channel.description;
+		imageChannel.src = info.brandingSettings.image.bannerImageUrl;
+		countChannel.innerText = info.statistics.subscriberCount;
 	})
 }
 

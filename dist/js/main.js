@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var HttpClient = function HttpClient() {
 
@@ -17,10 +17,25 @@ var HttpClient = function HttpClient() {
 
 var client = new HttpClient();
 
+var idChannel = 'UC_x5XG1OV2P6uZZ5FSM9Ttw';
+var part = 'statistics,brandingSettings';
+var nameChannel = document.querySelector('#name-channel');
+var descriptionChannel = document.querySelector('#description-channel');
+var imageChannel = document.querySelector('#image-channel');
+var countChannel = document.querySelector('#count');
+
 var showStat = function showStat() {
-	client.get('https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&key=AIzaSyA1mDALQf2z4NA6-wkj513DJxG7FwozOvQ', function (response) {
-		console.log(JSON.parse(response).items[0].statistics.subscriberCount);
-		console.log(JSON.parse(response).items[0].channelDescription); // see docs or console log the object
+	client.get('https://www.googleapis.com/youtube/v3/channels?part=' + part + '&id=&{idChannel}&key=UC_x5XG1OV2P6uZZ5FSM9Ttw&key=AIzaSyA1mDALQf2z4NA6-wkj513DJxG7FwozOvQ',
+	// using `` here, not '' 
+	function (response) {
+
+		var info = JSONparse(response).items[0];
+		console.log(info);
+		//console.log(JSON.parse(response).items[0].statistics.subscriberCount);
+		nameChannel.innerText = info.brandingSettings.channel.title;
+		description.Channel.innerText = info.brandingSettings.channel.description;
+		imageChannel.src = info.brandingSettings.image.bannerImageUrl;
+		countChannel.innerText = info.statistics.subscriberCount;
 	});
 };
 
